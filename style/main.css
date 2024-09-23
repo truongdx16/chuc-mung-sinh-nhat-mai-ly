@@ -292,9 +292,9 @@ body {
   }
 
   .wish-hbd {
-    font-family: "Playwrite RO", cursive;
+    font-family: "Agbalumo", system-ui;
     font-size: 2.2em;
-    font-weight: 700;
+    font-weight: 400;
   }
 
   .wish h5 {
