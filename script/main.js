@@ -8,14 +8,15 @@ window.addEventListener("load", () => {
     cancelButtonColor: "#808080",
     confirmButtonText: "Đồng ý",
     cancelButtonText: "Không",
-    
   }).then((result) => {
+    const song = document.querySelector(".song");
     if (result.isConfirmed) {
-      document.querySelector(".song").play();
-      animationTimeline();
+      song.play();
     } else {
-      animationTimeline();
+      song.pause();
+      song.currentTime = 0;
     }
+    animationTimeline();
   });
 });
 
@@ -127,9 +128,9 @@ const animationTimeline = () => {
       "+=1"
     )
     .from(".idea-1", 0.7, ideaTextTrans)
-    .to(".idea-1", 0.7, ideaTextTransLeave, "+=2.5")
+    .to(".idea-1", 0.7, ideaTextTransLeave, "+=0.5")
     .from(".idea-2", 0.7, ideaTextTrans)
-    .to(".idea-2", 0.7, ideaTextTransLeave, "+=2.5")
+    .to(".idea-2", 0.7, ideaTextTransLeave, "+=0.5")
     .from(".idea-3", 0.7, ideaTextTrans)
     .to(".idea-3 strong", 0.5, {
       scale: 1.2,
