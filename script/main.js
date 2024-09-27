@@ -1,5 +1,6 @@
 // trigger to play music in the background with sweetalert
 window.addEventListener("load", () => {
+  toggleMusicPlayback(false);
   Swal.fire({
     title: 'Chọn "Đồng ý" để nghe chút giai điệu vui tươi nhé?',
     icon: "warning",
@@ -9,13 +10,7 @@ window.addEventListener("load", () => {
     confirmButtonText: "Đồng ý",
     cancelButtonText: "Không",
   }).then((result) => {
-    const song = document.querySelector(".song");
-    if (result.isConfirmed) {
-      song.play();
-    } else {
-      song.pause();
-      song.currentTime = 0;
-    }
+    toggleMusicPlayback(result.isConfirmed);
     animationTimeline();
   });
 });
@@ -295,6 +290,16 @@ const animationTimeline = () => {
   // Restart Animation on click
   const replyBtn = document.getElementById("replay");
   replyBtn.addEventListener("click", () => {
-    tl.restart();
+    window.location.reload();
   });
+};
+
+const toggleMusicPlayback = (enable) => {
+  const song = document.querySelector(".song");
+  if (enable) {
+    song.play();
+  } else {
+    song.pause();
+    song.currentTime = 0;
+  }
 };
