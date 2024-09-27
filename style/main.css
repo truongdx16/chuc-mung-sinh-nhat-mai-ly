@@ -109,6 +109,7 @@ body {
   height: 350px;
   max-width: 100%;
   /* height: auto; */
+  aspect-ratio: auto;
 }
 
 .six .hat {
@@ -208,7 +209,7 @@ body {
 }
 
 .wish-hbd {
-  font-family: "Playwrite RO", cursive;
+  font-family: "Matemasie", sans-serif;
   font-size: 3em;
   margin: 0;
   text-transform: uppercase;
