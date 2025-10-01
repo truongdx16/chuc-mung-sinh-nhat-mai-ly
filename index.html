@@ -5,8 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="Thiệp chúc mừng sinh nhật đặc biệt dành cho Mai Ly - Tình yêu của anh" />
+    <meta name="keywords" content="sinh nhật, thiệp, tình yêu, Mai Ly, chúc mừng" />
     <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
-    <title>Happy Birthday!!! :)</title>
+    <title>Happy Birthday Mai Ly - Tình yêu của anh 💕</title>
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,21 +31,21 @@
     <!-- Mystery Elements -->
     <div class="mystery-overlay" id="mysteryOverlay">
         <div class="mystery-text">
-            <h2 class="mystery-title">🔍 Có điều gì đó đang chờ đợi...</h2>
-            <p class="mystery-subtitle">Hãy khám phá bí mật này!</p>
+            <h2 class="mystery-title">💕 Một món quà đặc biệt dành cho mình 💕</h2>
+            <p class="mystery-subtitle">Hãy khám phá những điều bất ngờ tui đã chuẩn bị!</p>
         </div>
     </div>
 
     <!-- Detective Mode -->
     <div class="detective-mode" id="detectiveMode">
         <div class="clue-container">
-            <div class="clue" data-clue="1">🎈</div>
+            <div class="clue" data-clue="1">🌸</div>
             <div class="clue" data-clue="2">🎂</div>
             <div class="clue" data-clue="3">🎁</div>
             <div class="clue" data-clue="4">💖</div>
         </div>
         <div class="detective-text">
-            <p>Tìm tất cả manh mối để khám phá bí mật!</p>
+            <p>Tìm tất cả manh mối để khám phá món quà đặc biệt tui dành cho mình!</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
@@ -51,25 +53,6 @@
     </div>
 
 
-    <!-- Interactive Cake -->
-    <div class="interactive-cake" id="interactiveCake">
-        <div class="cake-container">
-            <div class="cake">
-                <div class="cake-layer layer-1"></div>
-                <div class="cake-layer layer-2"></div>
-                <div class="cake-layer layer-3"></div>
-                <div class="candles">
-                    <div class="candle" data-age="20"></div>
-                    <div class="candle" data-age="21"></div>
-                    <div class="candle" data-age="22"></div>
-                </div>
-            </div>
-            <div class="cake-text">
-                <h3>🎂 Thổi nến và ước nguyện!</h3>
-                <p>Click vào nến để thổi!</p>
-            </div>
-        </div>
-    </div>
 
     <!-- Floating Hearts -->
     <div class="floating-hearts">
@@ -81,7 +64,21 @@
         <div class="heart">💕</div>
         <div class="heart">💗</div>
         <div class="heart">💝</div>
+        <div class="heart">✨</div>
+        <div class="heart">🌟</div>
+        <div class="heart">💫</div>
+        <div class="heart">🎀</div>
     </div>
+
+    <!-- Love Message Popup -->
+    <div class="love-message-popup" id="loveMessagePopup">
+        <div class="love-message-content">
+            <h3>💕 Lời nhắn từ trái tim 💕</h3>
+            <p id="loveMessageText">Mình là tình yêu đẹp nhất của tui!</p>
+            <button class="close-love-message" onclick="closeLoveMessage()">💖</button>
+        </div>
+    </div>
+
 
     <div class="container">
         <div class="one">
@@ -89,50 +86,33 @@
                 Hi,
                 <span id="name">Mai Ly</span>
             </h1>
-            <p class="two" id="greetingText">Tui thật sự thích cái tên của "Mình"!</p>
+            <p class="two" id="greetingText">Mỗi ngày bên mình là một món quà tuyệt vời nhất mà cuộc đời tặng cho tui 💕
+            </p>
         </div>
 
-        <div class="three">
-            <p>Hôm nay là sinh nhật của "Mình"!! :D</p>
-        </div>
 
         <div class="four">
             <div class="text-box">
                 <p class="hbd-chatbox">
-                    Happy birthday to youu!! Mong rằng hôm nay và những ngày sau, "mình" sẽ luôn ngập tràn hạnh phúc,
-                    niềm vui và sự yêu thương. Tui thật may mắn khi có "mình" bên cạnh, cùng chia sẻ mọi niềm vui, nỗi
-                    buồn. Chúc "mình" mãi xinh đẹp, tươi trẻ và luôn đạt được những điều "mình" mong muốn!.
+                    Chúc mừng sinh nhật mình! 🎉💖
+                    Hôm nay, tui muốn nói với mình rằng tui yêu mình nhiều hơn những gì từ ngữ có thể diễn tả.
+                    Chúc mình tuổi mới tràn đầy hạnh phúc, thành công và những điều tuyệt vời .
+                    Mong mình luôn khỏe mạnh, xinh đẹp và đạt được mọi ước mơ.
+                    Tui sẽ luôn ở bên mình, cùng mình vượt qua mọi thử thách và chia sẻ mọi niềm vui trong cuộc
+                    sống.
+                    Cảm ơn mình đã đến bên tui và làm cho cuộc đời tui trở nên ý nghĩa hơn bao giờ hết! 💕✨
                 </p>
                 <p class="fake-btn">Send</p>
             </div>
         </div>
 
-        <div class="five">
-            <p class="idea-1">Đang gửi...</p>
-            <p class="idea-2">Đã gửi</p>
-            <p class="idea-3">
-                Nhưng tui vẫn muốn làm điều gì đó<br>
-                <strong>Đặc biệt</strong>
-                .
-            </p>
-            <p class="idea-4">Bởi vì,</p>
-            <p class="idea-5">
-                "Mình" là người Đặc Biệt
-                <span>:)</span>
-            </p>
-            <p class="idea-6">
-                <span>VÌ</span>
-                <span>THẾ</span>
-
-            </p>
-        </div>
 
         <div class="six">
             <img src="./img/mai_ly.jpeg" alt="profile" class="profile-picture" id="imagePath" />
             <img src="img/hat.svg" alt="hat" class="hat" />
             <div class="wish">
                 <h3 class="wish-hbd">Happy Birthday!</h3>
-                <h5 id="wishText">Phạm Mai Ly ;)</h5>
+                <h5 id="wishText">Mai Ly - Tình yêu của tui 💖</h5>
             </div>
         </div>
 
@@ -205,10 +185,12 @@
         </div>
 
         <div class="nine">
-            <p>Okay, nếu "mình" thích thì có thể nói với tui qua <a href="https://m.me/truongdx61">Messenger</a> nhé.
+            <p>Mình, nếu mình thích thiệp này thì hãy nhắn tin cho tui qua <a
+                    href="https://m.me/truongdx61">Messenger</a> nhé! 💌
             </p>
-            <p id="replay">Hoặc nhấn vào dòng chữ này nếu "mình" muốn xem lại^^</p>
-            <p class="last-smile">:)</p>
+            <p id="replay">Hoặc nhấn vào đây nếu mình muốn xem lại thiệp sinh nhật đặc biệt này 💕</p>
+            <p class="gift-hint">💝 Những manh mối mình chọn chính là phần quà sẽ được gửi đến mình vào tối nay! 💝</p>
+            <p class="last-smile">Tui yêu mình! 💖</p>
         </div>
     </div>
 
