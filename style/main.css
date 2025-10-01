@@ -5,6 +5,111 @@ html {
 body {
   font-family: "Playwrite DE Grund", cursive;
   margin: 0;
+  background: linear-gradient(135deg, #FFB6C1 0%, #E6E6FA 25%, #F0FFF0 50%, #FFDAB9 75%, #FFFACD 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating Hearts Animation */
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0;
+  animation: floatUp 6s infinite ease-in-out;
+}
+
+.heart:nth-child(1) {
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 6s;
+}
+
+.heart:nth-child(2) {
+  left: 20%;
+  animation-delay: 1s;
+  animation-duration: 7s;
+}
+
+.heart:nth-child(3) {
+  left: 30%;
+  animation-delay: 2s;
+  animation-duration: 5s;
+}
+
+.heart:nth-child(4) {
+  left: 40%;
+  animation-delay: 3s;
+  animation-duration: 8s;
+}
+
+.heart:nth-child(5) {
+  left: 60%;
+  animation-delay: 1.5s;
+  animation-duration: 6.5s;
+}
+
+.heart:nth-child(6) {
+  left: 70%;
+  animation-delay: 2.5s;
+  animation-duration: 7.5s;
+}
+
+.heart:nth-child(7) {
+  left: 80%;
+  animation-delay: 0.5s;
+  animation-duration: 5.5s;
+}
+
+.heart:nth-child(8) {
+  left: 90%;
+  animation-delay: 3.5s;
+  animation-duration: 8.5s;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(0deg) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) rotate(360deg) scale(1.2);
+  }
+}
+
+@keyframes gradientRotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradientText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .song {
@@ -12,44 +117,104 @@ body {
 }
 
 .container {
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   overflow: hidden;
   position: relative;
   text-align: center;
   visibility: hidden;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .container > div {
   left: 0;
   position: absolute;
   right: 0;
-  top: 20vh;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .one {
   font-size: 4.5rem;
+  color: #FF69B4;
+  text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+  animation: bounceIn 1s ease-out;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .two {
   font-size: 1.2rem;
   font-weight: lighter;
+  margin-bottom: 2rem;
+  color: #666;
+  line-height: 1.4;
 }
 
 .three {
   font-size: 3rem;
+  color: #FF1493;
+  text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .four .text-box {
-  border: 3px solid #aaa;
-  border-radius: 5px;
+  border: 3px solid #FF69B4;
+  border-radius: 20px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 20px;
   position: relative;
-  width: 600px;
-  background-color: #ffd166;
-  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+  background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 100%);
+  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+  transform: rotate(-1deg);
+  transition: all 0.3s ease;
+}
+
+.four .text-box:hover {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
 }
 
 .text-box p {
@@ -62,20 +227,32 @@ body {
 }
 
 .text-box .fake-btn {
-  background-color: rgb(21, 161, 237);
-  border-radius: 16px;
+  background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+  border-radius: 25px;
   bottom: -50px;
   color: #fff;
-  padding: 0.5rem 1rem;
+  padding: 0.8rem 1.5rem;
   position: absolute;
   right: 5px;
+  box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.text-box .fake-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6);
 }
 
 .five p {
   font-size: 2rem;
-  left: 0;
-  position: absolute;
-  right: 0;
+  margin: 1rem 0;
+  text-align: center;
+  color: #333;
+  line-height: 1.4;
 }
 
 .idea-3 strong {
@@ -100,29 +277,66 @@ body {
 
 .six {
   position: relative;
-  top: 10vh;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
 .six img {
-  display: inline-block;
-  height: 350px;
-  max-width: 100%;
-  /* height: auto; */
-  aspect-ratio: auto;
+  display: block;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 8px solid #FF69B4;
+  box-shadow: 0 15px 35px rgba(255, 105, 180, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  margin: 0 auto;
+}
+
+.six img:hover {
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: 0 20px 50px rgba(255, 105, 180, 0.6);
+  border-color: #FF1493;
+}
+
+.six img::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #FF69B4, #FF1493, #FFB6C1, #FF69B4);
+  background-size: 400% 400%;
+  animation: gradientRotate 3s ease infinite;
+  z-index: -1;
 }
 
 .six .hat {
-  left: 41.5%;
+  left: 50%;
+  transform: translateX(-50%);
   position: absolute;
-  /* transform: scale(0.1); */
-  top: -35%;
+  top: -40px;
   width: 80px;
+  z-index: 2;
 }
 
 .baloons img {
   display: inline-block;
   position: absolute;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.baloons img:hover {
+  transform: scale(1.2) rotate(10deg);
+  filter: brightness(1.2);
 }
 
 .baloons img:nth-child(even) {
@@ -152,6 +366,13 @@ body {
   visibility: hidden;
   width: 25px;
   z-index: -1;
+  filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.5));
+  transition: all 0.3s ease;
+}
+
+.eight svg:hover {
+  transform: scale(1.5) rotate(180deg);
+  filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.8));
 }
 
 .eight svg:nth-child(1) {
@@ -208,28 +429,64 @@ body {
   top: 94vh;
 }
 
+.wish {
+  margin-top: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .wish-hbd {
   font-family: "Matemasie", sans-serif;
   font-size: 3em;
   margin: 0;
   text-transform: uppercase;
   font-weight: 700;
+  background: linear-gradient(45deg, #FF69B4, #FF1493, #FFB6C1, #FF69B4);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientText 3s ease infinite;
+  text-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
 }
 
 .wish h5 {
   font-size: 2rem;
   font-weight: lighter;
   margin: 10px 0 0;
+  color: #FF69B4;
 }
 
 .nine p {
   font-size: 2rem;
   font-weight: lighter;
+  margin: 1rem 0;
+  text-align: center;
+  color: #333;
+  line-height: 1.4;
 }
 
 #replay {
   cursor: pointer;
   z-index: 3;
+  color: #FF69B4;
+  text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.3);
+  transition: all 0.3s ease;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(255, 20, 147, 0.1));
+  border: 2px solid transparent;
+}
+
+#replay:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(255, 20, 147, 0.2));
+  border-color: #FF69B4;
+  box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
 }
 
 /* Media Queries */
@@ -268,11 +525,14 @@ body {
 
   .four .text-box {
     width: 90%;
+    padding: 15px;
   }
 
   .text-box .fake-btn {
     bottom: -38px;
     right: 5px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
   }
 
   .idea-5 span {
@@ -288,7 +548,6 @@ body {
   }
 
   .six .hat {
-    /* top: -20px; */
     width: 50px;
   }
 
@@ -306,8 +565,482 @@ body {
     font-size: 1.5rem;
     font-weight: lighter;
   }
+
+  /* Mobile-specific cute effects */
+  .heart {
+    font-size: 1.5rem;
+  }
+
+  .six img {
+    width: 250px;
+    height: 250px;
+    border-width: 6px;
+  }
+
+  .six img:hover {
+    transform: scale(1.02) rotate(2deg);
+  }
+
+  .baloons img:hover {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .eight svg:hover {
+    transform: scale(1.2) rotate(90deg);
+  }
+
+  #replay {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .last-smile {
+    font-size: 2.5rem;
+  }
 }
 
 #wishText {
   font-weight: 600;
+}
+
+.last-smile {
+  font-size: 3rem;
+  font-weight: lighter;
+  color: #FF69B4;
+  text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+  animation: wiggle 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes wiggle {
+  0%, 7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-15deg);
+  }
+  20% {
+    transform: rotateZ(10deg);
+  }
+  25% {
+    transform: rotateZ(-10deg);
+  }
+  30% {
+    transform: rotateZ(6deg);
+  }
+  35% {
+    transform: rotateZ(-4deg);
+  }
+  40%, 100% {
+    transform: rotateZ(0);
+  }
+}
+
+/* SweetAlert Cute Styling */
+.swal-cute-popup {
+  border-radius: 20px !important;
+  border: 3px solid #FF69B4 !important;
+  box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3) !important;
+}
+
+.swal-cute-title {
+  color: #FF69B4 !important;
+  font-family: "Playwrite DE Grund", cursive !important;
+  font-weight: bold !important;
+}
+
+.swal-cute-button {
+  border-radius: 25px !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4) !important;
+  transition: all 0.3s ease !important;
+}
+
+.swal-cute-button:hover {
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6) !important;
+}
+
+/* Mystery Overlay */
+.mystery-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.mystery-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mystery-text {
+  text-align: center;
+  color: white;
+}
+
+.mystery-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #FF69B4, #FF1493, #FFB6C1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: mysteryGlow 2s ease-in-out infinite;
+}
+
+.mystery-subtitle {
+  font-size: 1.5rem;
+  opacity: 0.8;
+  animation: fadeInOut 3s ease-in-out infinite;
+}
+
+@keyframes mysteryGlow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5); }
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Detective Mode */
+.detective-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2c1810 0%, #8b4513 50%, #daa520 100%);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  flex-direction: column;
+}
+
+.detective-mode.active {
+  display: flex;
+}
+
+.clue-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.clue {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #FF69B4, #FF1493);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+  opacity: 0.3;
+}
+
+.clue.found {
+  opacity: 1;
+  transform: scale(1.1);
+  box-shadow: 0 15px 40px rgba(255, 105, 180, 0.6);
+}
+
+.clue:hover {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.detective-text {
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.detective-text p {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  width: 300px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF69B4, #FF1493);
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+
+/* Interactive Cake */
+.interactive-cake {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 996;
+}
+
+.interactive-cake.active {
+  display: flex;
+}
+
+.cake-container {
+  text-align: center;
+}
+
+.cake {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.cake-layer {
+  width: 200px;
+  height: 60px;
+  border-radius: 10px;
+  margin: 0 auto 5px;
+  position: relative;
+}
+
+.layer-1 {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  width: 250px;
+}
+
+.layer-2 {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  width: 220px;
+}
+
+.layer-3 {
+  background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+  width: 190px;
+}
+
+.candles {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.candle {
+  width: 8px;
+  height: 40px;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.candle::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 10px;
+  background: #ffd700;
+  border-radius: 50%;
+  animation: candleFlicker 2s ease-in-out infinite;
+}
+
+.candle.blown::before {
+  display: none;
+}
+
+.candle:hover {
+  transform: scale(1.1);
+}
+
+@keyframes candleFlicker {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.1); }
+}
+
+.cake-text {
+  color: #333;
+}
+
+.cake-text h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #FF69B4;
+}
+
+.cake-text p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+/* Mobile Optimizations */
+@media screen and (max-width: 768px) {
+  /* Mystery Overlay Mobile */
+  .mystery-title {
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .mystery-subtitle {
+    font-size: 1.2rem;
+    padding: 0 1rem;
+  }
+
+  /* Detective Mode Mobile */
+  .detective-mode {
+    padding: 1rem;
+  }
+  
+  .clue-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .clue {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+  
+  .detective-text p {
+    font-size: 1.2rem;
+    padding: 0 1rem;
+  }
+  
+  .progress-bar {
+    width: 250px;
+    height: 15px;
+    margin: 0 auto;
+  }
+
+
+  /* Interactive Cake Mobile */
+  .cake-layer {
+    width: 150px;
+    height: 50px;
+  }
+  
+  .layer-1 {
+    width: 180px;
+  }
+  
+  .layer-2 {
+    width: 160px;
+  }
+  
+  .layer-3 {
+    width: 140px;
+  }
+  
+  .candle {
+    width: 6px;
+    height: 30px;
+  }
+  
+  .cake-text h3 {
+    font-size: 1.5rem;
+  }
+  
+  .cake-text p {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Extra Small Mobile */
+  .mystery-title {
+    font-size: 1.5rem;
+  }
+  
+  .mystery-subtitle {
+    font-size: 1rem;
+  }
+  
+  .clue {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+  
+  .detective-text p {
+    font-size: 1rem;
+  }
+  
+  .progress-bar {
+    width: 200px;
+    height: 12px;
+    margin: 0 auto;
+  }
+  
+  
+  .cake-layer {
+    width: 120px;
+    height: 40px;
+  }
+  
+  .layer-1 {
+    width: 150px;
+  }
+  
+  .layer-2 {
+    width: 130px;
+  }
+  
+  .layer-3 {
+    width: 110px;
+  }
+  
+  .candle {
+    width: 5px;
+    height: 25px;
+  }
+  
+  .cake-text h3 {
+    font-size: 1.2rem;
+  }
+  
+  .cake-text p {
+    font-size: 0.9rem;
+  }
+  
+  .six img {
+    width: 200px;
+    height: 200px;
+    border-width: 4px;
+  }
 }
