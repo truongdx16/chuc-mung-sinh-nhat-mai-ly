@@ -1,5 +1,9 @@
 import { createStarSky } from "./stars3d.js";
 import { createNameConstellation } from "./name.js";
+import { createLyricsPlayer } from "./lyricsPlayer.js";
+
+/** Set true when lyric timings in lyrics.js are ready again. */
+const LYRICS_ENABLED = false;
 
 const reasons = window.LOVE_REASONS || [];
 const UNLOCK_AT = Math.min(4, reasons.length);
@@ -23,6 +27,7 @@ const finale = document.getElementById("finale");
 const constellationSvg = document.getElementById("constellationSvg");
 const canvas = document.getElementById("skyCanvas");
 const song = document.querySelector(".song");
+const lyricsRoot = document.getElementById("lyrics");
 
 let storyIndexPos = -1;
 let finaleStarted = false;
@@ -33,6 +38,9 @@ let nameConstellation = null;
 progressTotal.textContent = String(reasons.length);
 
 const sky = createStarSky({ canvas });
+const lyricsPlayer = LYRICS_ENABLED
+  ? createLyricsPlayer({ audio: song, root: lyricsRoot })
+  : null;
 
 function showCaption(title, subtitle) {
   constellationCaption.hidden = false;
@@ -205,11 +213,13 @@ function playMusic() {
   if (!song) return;
   song.volume = 0.45;
   song.play().catch(() => {});
+  if (lyricsPlayer) lyricsPlayer.start();
 }
 
 function enterSky() {
   playMusic();
   intro.classList.add("is-leaving");
+  if (LYRICS_ENABLED) document.body.classList.add("has-lyrics");
 
   window.setTimeout(() => {
     intro.hidden = true;
@@ -228,11 +238,11 @@ async function startFinale() {
   storyStage.classList.add("is-leaving");
   progressCount.textContent = String(reasons.length);
 
-  skyHint.textContent = "Nối các ngôi sao thành Thiên Bình…";
+  skyHint.textContent = "Nối thành chòm sao Thiên Bình";
   await wait(350);
   await sky.revealConstellation({ lineDuration: 1200 });
-  showCaption("Thiên Bình", "Chòm sao theo bản đồ bầu trời");
-  skyHint.textContent = "Thiên Bình — đúng như trên bầu trời thật";
+  showCaption("Thiên Bình", "Yêu một Thiên Bình là học cách chậm lại, nghe tâm hồn mình được chữa lành bởi sự dịu dàng nguyên bản");
+  skyHint.textContent = "Nhẹ nhàng như cán cân — và luôn khiến anh thấy được chọn và được yêu";
   await wait(2600);
 
   await hideCaption();

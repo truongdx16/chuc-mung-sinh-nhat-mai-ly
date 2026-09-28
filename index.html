@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Bầu trời sao dành riêng cho Mai Ly — mỗi ngôi sao là một lý do anh yêu mình" />
   <title>Mai Ly — Bầu trời của anh</title>
+  <link rel="icon" href="./favicon.png" type="image/png" sizes="96x96" />
+  <link rel="icon" href="./favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <meta name="theme-color" content="#070b14" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -25,7 +29,7 @@
 <body>
   <canvas id="skyCanvas" aria-hidden="true"></canvas>
 
-  <audio class="song" loop>
+  <audio class="song">
     <source src="./music/DAY-LA-BAI-HAT-SINH-NHAT.mp3" type="audio/mpeg" />
   </audio>
 
@@ -62,8 +66,10 @@
   </main>
 
   <section class="finale" id="finale" hidden>
-    <svg class="constellation-svg" id="constellationSvg" viewBox="0 0 1000 420" role="img"
-      aria-label="Chòm sao Mai Ly"></svg>
+    <div class="constellation-wrap">
+      <svg class="constellation-svg" id="constellationSvg" viewBox="0 0 840 290" role="img"
+        aria-label="Chòm sao Mai Ly" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
     <p class="finale-message" id="finaleMessage">
       Anh không đếm được hết những lý do yêu mình —
       nhưng anh biết chắc một điều:
@@ -71,6 +77,12 @@
     </p>
     <p class="finale-wish">Chúc mừng sinh nhật mình. Anh yêu mình.</p>
   </section>
+
+  <aside class="lyrics" id="lyrics" hidden aria-live="polite">
+    <div class="lyrics-viewport">
+      <div class="lyrics-track" data-lyrics-track></div>
+    </div>
+  </aside>
 
   <script src="./script/reasons.js"></script>
   <script type="module" src="./script/main.js"></script>

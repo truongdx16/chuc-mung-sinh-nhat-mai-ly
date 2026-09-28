@@ -424,7 +424,9 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 6vh 1.5rem 8vh;
+  padding: 6vh 1.25rem 8vh;
+  width: 100%;
+  box-sizing: border-box;
   background: rgba(7, 11, 20, 0.42);
   animation: fadeIn 0.8s ease both;
   pointer-events: none;
@@ -434,10 +436,20 @@ body {
   display: none !important;
 }
 
+.constellation-wrap {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .constellation-svg {
-  width: min(94vw, 760px);
+  width: 100%;
+  max-width: 100%;
   height: auto;
-  margin-bottom: 2rem;
+  margin: 0 auto;
   overflow: visible;
   display: block;
 }
@@ -482,6 +494,85 @@ body {
 body.is-finale #skyCanvas {
   opacity: 0.35;
   transition: opacity 0.8s ease;
+}
+
+/* ——— Synced lyrics ——— */
+.lyrics {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 12;
+  height: 7.5rem;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  background: linear-gradient(180deg, transparent 0%, rgba(7, 11, 20, 0.55) 35%, rgba(7, 11, 20, 0.88) 100%);
+}
+
+.lyrics.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lyrics[hidden] {
+  display: none !important;
+}
+
+.lyrics-viewport {
+  height: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+}
+
+.lyrics-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.55rem;
+  padding: 2.1rem 1.25rem 2.4rem;
+  text-align: center;
+}
+
+.lyrics-line {
+  margin: 0;
+  max-width: 36rem;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 2.8vw, 1.2rem);
+  font-style: italic;
+  line-height: 1.35;
+  color: rgba(244, 239, 230, 0.28);
+  transition: color 0.35s ease, transform 0.35s ease, opacity 0.35s ease, text-shadow 0.35s ease;
+  transform: scale(0.96);
+}
+
+.lyrics-line.is-past {
+  color: rgba(244, 239, 230, 0.22);
+}
+
+.lyrics-line.is-active {
+  color: var(--star);
+  transform: scale(1);
+  text-shadow: 0 0 24px rgba(232, 201, 138, 0.35);
+}
+
+.lyrics-line.is-upcoming {
+  color: rgba(244, 239, 230, 0.3);
+}
+
+body.has-lyrics .story-nudge {
+  bottom: 8.75rem;
+}
+
+body.has-lyrics .constellation-btn {
+  bottom: 8.5rem;
+}
+
+body.has-lyrics.is-finale .lyrics {
+  background: linear-gradient(180deg, transparent 0%, rgba(7, 11, 20, 0.72) 40%, rgba(7, 11, 20, 0.92) 100%);
 }
 
 @keyframes fadeIn {
@@ -559,6 +650,28 @@ body.is-finale #skyCanvas {
     bottom: 1.25rem;
     width: calc(100% - 2.5rem);
     max-width: 20rem;
+  }
+
+  .finale {
+    padding: 5vh 1rem 6vh;
+  }
+
+  .constellation-wrap {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .lyrics {
+    height: 8.25rem;
+  }
+
+  body.has-lyrics .story-nudge {
+    bottom: 9.5rem;
+  }
+
+  body.has-lyrics .constellation-btn {
+    bottom: 9.25rem;
   }
 }
 
