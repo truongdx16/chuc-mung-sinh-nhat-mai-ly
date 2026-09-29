@@ -3,7 +3,6 @@
  * `time` = line start in seconds (audio.currentTime).
  *
  * Global nudge (seconds): positive = show later, negative = show earlier.
- * Feature is currently off — set LYRICS_ENABLED = true in main.js to show again.
  */
 export const TIME_OFFSET = 0;
 

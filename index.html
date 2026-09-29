@@ -10,6 +10,18 @@
   <link rel="icon" href="./favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <meta name="theme-color" content="#070b14" />
+  <script>
+    (function () {
+      var openAt = Date.parse("2026-10-03T00:00:00+07:00");
+      var unlocked = false;
+      try {
+        unlocked = sessionStorage.getItem("maily-sky-gate-unlocked") === "1";
+      } catch (e) {}
+      if (Date.now() < openAt && !unlocked) {
+        document.documentElement.classList.add("is-gated");
+      }
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
@@ -27,6 +39,34 @@
 </head>
 
 <body>
+  <section class="gate" id="gate">
+    <p class="gate-eyebrow">Sắp ra mắt</p>
+    <h1 class="gate-title">Mai Ly</h1>
+    <p class="gate-lead">Bầu trời dành riêng cho mình<br />sẽ mở lúc 0:00 · 03.10.2026</p>
+    <p class="gate-countdown" data-gate-countdown aria-live="polite">—</p>
+    <button type="button" class="gate-toggle" data-gate-toggle aria-expanded="false">
+      Có mật mã sớm?
+    </button>
+    <div class="gate-unlock" data-gate-unlock hidden>
+      <form class="gate-form" data-gate-form>
+        <label class="gate-label" for="gatePassword">Mật mã</label>
+        <input
+          id="gatePassword"
+          class="gate-input"
+          data-gate-input
+          type="password"
+          name="password"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Nhập mật mã"
+          required
+        />
+        <button type="submit" class="gate-submit">Mở cửa</button>
+      </form>
+      <p class="gate-error" data-gate-error hidden></p>
+    </div>
+  </section>
+
   <canvas id="skyCanvas" aria-hidden="true"></canvas>
 
   <audio class="song">
@@ -79,9 +119,7 @@
   </section>
 
   <aside class="lyrics" id="lyrics" hidden aria-live="polite">
-    <div class="lyrics-viewport">
-      <div class="lyrics-track" data-lyrics-track></div>
-    </div>
+    <p class="lyrics-line" data-lyrics-line></p>
   </aside>
 
   <script src="./script/reasons.js"></script>

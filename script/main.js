@@ -1,9 +1,14 @@
 import { createStarSky } from "./stars3d.js";
 import { createNameConstellation } from "./name.js";
 import { createLyricsPlayer } from "./lyricsPlayer.js";
+import { mountGate } from "./gate.js";
 
 /** Set true when lyric timings in lyrics.js are ready again. */
-const LYRICS_ENABLED = false;
+const LYRICS_ENABLED = true;
+
+const gateRoot = document.getElementById("gate");
+
+await mountGate(gateRoot);
 
 const reasons = window.LOVE_REASONS || [];
 const UNLOCK_AT = Math.min(4, reasons.length);
@@ -173,7 +178,7 @@ function showReason(index) {
   storyStage.classList.add("is-visible");
 
   if (index === 0) {
-    skyHint.textContent = "Mỗi câu là một ánh sáng anh dành riêng cho em";
+    skyHint.textContent = "Mỗi lời là một vì sao anh thắp lên vì mình";
   }
 
   scheduleAutoAdvance();
