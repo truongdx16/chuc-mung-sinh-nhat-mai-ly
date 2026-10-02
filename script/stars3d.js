@@ -139,38 +139,111 @@ export function createStarSky({ canvas }) {
     });
   }
 
-  /* ——— Libra: 5-point star meshes ——— */
-  const starGeo = createStarGeometry(isMobile ? 0.28 : 0.34, isMobile ? 0.11 : 0.14);
+  /* ——— Libra: alternate 5-point icons and round dots ——— */
+  const starIconGeo = createStarGeometry(isMobile ? 0.72 : 0.9, isMobile ? 0.3 : 0.37);
+  const starDotGeo = new THREE.CircleGeometry(isMobile ? 0.34 : 0.42, 28);
+  const starGlowGeo = new THREE.CircleGeometry(1, 24);
   /** @type {THREE.Mesh[]} */
   const starMeshes = [];
+  /** @type {THREE.Mesh[]} */
+  const starGlows = [];
   const worldPositions = [];
 
   for (let i = 0; i < starCount; i++) {
-    const mat = new THREE.MeshBasicMaterial({
-      color: 0xf3e6c8,
-      transparent: true,
-      opacity: 0.28,
-      depthWrite: false,
-    });
-    const mesh = new THREE.Mesh(starGeo, mat);
-    mesh.renderOrder = 2;
+    const isIcon = i % 2 === 0;
+    const glow = new THREE.Mesh(
+      starGlowGeo,
+      new THREE.MeshBasicMaterial({
+        color: 0xffe7b0,
+        transparent: true,
+        opacity: 0.16,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+      })
+    );
+    glow.scale.setScalar(isIcon ? (isMobile ? 1.15 : 1.4) : isMobile ? 0.85 : 1.05);
+    glow.renderOrder = 3;
+
+    const mesh = new THREE.Mesh(
+      isIcon ? starIconGeo : starDotGeo,
+      new THREE.MeshBasicMaterial({
+        color: 0xfff6e0,
+        transparent: true,
+        opacity: 0.45,
+        depthWrite: false,
+      })
+    );
+    mesh.renderOrder = 4;
+    libraLayer.add(glow);
     libraLayer.add(mesh);
+    starGlows.push(glow);
     starMeshes.push(mesh);
     worldPositions.push(new THREE.Vector3());
   }
 
-  const linePositions = new Float32Array(LIBRA_LINES.length * 6);
-  const lineGeo = new THREE.BufferGeometry();
-  lineGeo.setAttribute("position", new THREE.BufferAttribute(linePositions, 3));
-  const lineMat = new THREE.LineBasicMaterial({
-    color: 0xe8c98a,
-    transparent: true,
-    opacity: 0,
-    depthWrite: false,
+  function setStarEmphasis(index, opacity, color) {
+    const mesh = starMeshes[index];
+    const glow = starGlows[index];
+    mesh.material.opacity = opacity;
+    mesh.material.color.setHex(color);
+    glow.material.opacity = opacity > 0.7 ? 0.55 : 0.22;
+    glow.material.color.setHex(color);
+  }
+
+  const ribbonGeo = new THREE.PlaneGeometry(1, 1);
+  const lineThickness = isMobile ? 0.1 : 0.13;
+  /** @type {{ a: THREE.Vector3, b: THREE.Vector3, progress: number, core: THREE.Mesh, glow: THREE.Mesh }[]} */
+  const lineSegs = LIBRA_LINES.map(() => {
+    const glowMat = new THREE.MeshBasicMaterial({
+      color: 0xe8c98a,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+    });
+    const coreMat = new THREE.MeshBasicMaterial({
+      color: 0xfff6e0,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+    });
+    const glow = new THREE.Mesh(ribbonGeo, glowMat);
+    const core = new THREE.Mesh(ribbonGeo, coreMat);
+    glow.renderOrder = 1;
+    core.renderOrder = 2;
+    libraLayer.add(glow);
+    libraLayer.add(core);
+    return {
+      a: new THREE.Vector3(),
+      b: new THREE.Vector3(),
+      progress: 0,
+      core,
+      glow,
+    };
   });
-  const libraLines = new THREE.LineSegments(lineGeo, lineMat);
-  libraLines.renderOrder = 1;
-  libraLayer.add(libraLines);
+
+  function layoutSegment(seg) {
+    const t = Math.max(0, Math.min(1, seg.progress));
+    const ex = seg.a.x + (seg.b.x - seg.a.x) * t;
+    const ey = seg.a.y + (seg.b.y - seg.a.y) * t;
+    const ez = seg.a.z + (seg.b.z - seg.a.z) * t;
+    const len = Math.hypot(ex - seg.a.x, ey - seg.a.y);
+    const show = t > 0.015 && len > 0.001;
+    const ang = Math.atan2(ey - seg.a.y, ex - seg.a.x);
+    const mx = (seg.a.x + ex) / 2;
+    const my = (seg.a.y + ey) / 2;
+    const mz = (seg.a.z + ez) / 2;
+
+    seg.core.position.set(mx, my, mz);
+    seg.glow.position.set(mx, my, mz);
+    seg.core.rotation.z = ang;
+    seg.glow.rotation.z = ang;
+    seg.core.scale.set(Math.max(len, 0.0001), lineThickness, 1);
+    seg.glow.scale.set(Math.max(len, 0.0001), lineThickness * 3.4, 1);
+    seg.core.material.opacity = show ? 0.98 : 0;
+    seg.glow.material.opacity = show ? 0.42 : 0;
+  }
 
   let running = true;
   let visible = document.visibilityState === "visible";
@@ -191,21 +264,15 @@ export function createStarSky({ canvas }) {
     const pts = designToWorld(LIBRA_DESIGN, bounds);
     for (let i = 0; i < starCount; i++) {
       starMeshes[i].position.copy(pts[i]);
+      starGlows[i].position.copy(pts[i]);
       worldPositions[i].copy(pts[i]);
     }
     for (let i = 0; i < LIBRA_LINES.length; i++) {
       const [a, b] = LIBRA_LINES[i];
-      const pa = pts[a];
-      const pb = pts[b];
-      const o = i * 6;
-      linePositions[o] = pa.x;
-      linePositions[o + 1] = pa.y;
-      linePositions[o + 2] = pa.z;
-      linePositions[o + 3] = pb.x;
-      linePositions[o + 4] = pb.y;
-      linePositions[o + 5] = pb.z;
+      lineSegs[i].a.copy(pts[a]);
+      lineSegs[i].b.copy(pts[b]);
+      layoutSegment(lineSegs[i]);
     }
-    lineGeo.getAttribute("position").needsUpdate = true;
   }
 
   function resize() {
@@ -223,13 +290,10 @@ export function createStarSky({ canvas }) {
     const litUpTo = Math.min(reasonIndex + 1, starCount);
     const focusIdx = Math.min(reasonIndex, starCount - 1);
     for (let i = 0; i < starCount; i++) {
-      const mat = starMeshes[i].material;
       if (i < litUpTo) {
-        mat.opacity = i === focusIdx ? 1 : 0.78;
-        mat.color.setHex(i === focusIdx ? 0xfff6e0 : 0xf3e6c8);
+        setStarEmphasis(i, i === focusIdx ? 1 : 0.82, i === focusIdx ? 0xfff8e8 : 0xf6ead0);
       } else {
-        mat.opacity = 0.28;
-        mat.color.setHex(0xf3e6c8);
+        setStarEmphasis(i, 0.42, 0xf3e6c8);
       }
     }
   }
@@ -260,27 +324,42 @@ export function createStarSky({ canvas }) {
     });
   }
 
-  /** Connect Libra points only — no movement */
-  async function revealConstellation({ lineDuration = 1200 } = {}) {
+  /** Draw each Libra segment from point A to point B */
+  async function revealConstellation({ lineDuration = 2400 } = {}) {
     lockCamera = true;
     camera.position.x = 0;
     camera.position.y = 0;
     camera.lookAt(lookAt);
-    applyLibraPositions();
 
     for (let i = 0; i < starCount; i++) {
-      starMeshes[i].material.opacity = 1;
-      starMeshes[i].material.color.setHex(0xfff6e0);
+      setStarEmphasis(i, 0.62, 0xf6ead0);
     }
+    lineSegs.forEach((seg) => {
+      seg.progress = 0;
+    });
+    applyLibraPositions();
 
-    await fadeValue(
-      () => lineMat.opacity,
-      (v) => {
-        lineMat.opacity = v;
-      },
-      1,
-      lineDuration
-    );
+    const perLine = reduceMotion ? 40 : Math.max(260, lineDuration / lineSegs.length);
+
+    for (let i = 0; i < lineSegs.length; i++) {
+      const seg = lineSegs[i];
+      const [ia, ib] = LIBRA_LINES[i];
+      setStarEmphasis(ia, 1, 0xfff8e8);
+
+      await new Promise((resolve) => {
+        const t0 = performance.now();
+        function step(now) {
+          const t = Math.min(1, (now - t0) / perLine);
+          seg.progress = easeInOutCubic(t);
+          layoutSegment(seg);
+          if (t < 1) requestAnimationFrame(step);
+          else resolve();
+        }
+        requestAnimationFrame(step);
+      });
+
+      setStarEmphasis(ib, 1, 0xfff8e8);
+    }
   }
 
   function onPointerMove(e) {
@@ -312,15 +391,35 @@ export function createStarSky({ canvas }) {
   /** Soften Libra before switching to finale name canvas */
   async function fadeLibraForName() {
     await Promise.all([
-      fadeValue(
-        () => lineMat.opacity,
-        (v) => {
-          lineMat.opacity = v;
-        },
-        0,
-        600
-      ),
+      ...lineSegs.flatMap((seg) => [
+        fadeValue(
+          () => seg.core.material.opacity,
+          (v) => {
+            seg.core.material.opacity = v;
+          },
+          0,
+          600
+        ),
+        fadeValue(
+          () => seg.glow.material.opacity,
+          (v) => {
+            seg.glow.material.opacity = v;
+          },
+          0,
+          600
+        ),
+      ]),
       ...starMeshes.map((m) =>
+        fadeValue(
+          () => m.material.opacity,
+          (v) => {
+            m.material.opacity = v;
+          },
+          0,
+          600
+        )
+      ),
+      ...starGlows.map((m) =>
         fadeValue(
           () => m.material.opacity,
           (v) => {
@@ -350,10 +449,16 @@ export function createStarSky({ canvas }) {
     document.removeEventListener("visibilitychange", onVisibility);
     bgGeo.dispose();
     bgMat.dispose();
-    starGeo.dispose();
+    starIconGeo.dispose();
+    starDotGeo.dispose();
+    starGlowGeo.dispose();
     starMeshes.forEach((m) => m.material.dispose());
-    lineGeo.dispose();
-    lineMat.dispose();
+    starGlows.forEach((m) => m.material.dispose());
+    ribbonGeo.dispose();
+    lineSegs.forEach((seg) => {
+      seg.core.material.dispose();
+      seg.glow.material.dispose();
+    });
     renderer.dispose();
   }
 

@@ -245,10 +245,10 @@ async function startFinale() {
 
   skyHint.textContent = "Nối thành chòm sao Thiên Bình";
   await wait(350);
-  await sky.revealConstellation({ lineDuration: 1200 });
+  await sky.revealConstellation({ lineDuration: 2800 });
   showCaption("Thiên Bình", "Yêu một Thiên Bình là học cách chậm lại, nghe tâm hồn mình được chữa lành bởi sự dịu dàng nguyên bản");
   skyHint.textContent = "Nhẹ nhàng như cán cân — và luôn khiến anh thấy được chọn và được yêu";
-  await wait(2600);
+  await wait(3600);
 
   await hideCaption();
   skyHint.textContent = "";
@@ -277,7 +277,7 @@ showConstellationBtn.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   if (finaleStarted || skyStage.hidden) return;
   if (e.key === "Enter" || e.key === " " || e.key === "ArrowRight") {
-    e.preventDefault();
+      e.preventDefault();
     advanceStory();
   }
 });
