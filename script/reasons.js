@@ -25,7 +25,7 @@ window.LOVE_REASONS = [
   "Cách mình chăm sóc người mình thương.",
   "Mình khiến anh dám nói ra những điều từng sợ.",
   "Kỷ niệm với mình là những vì sao anh mang theo.",
-  "Mình không hoàn hảo — và anh yêu đúng con người đó.",
+  "Anh không đi tìm một người hoàn hảo, anh chỉ đi tìm đúng mình thôi.",
   "Ở bên mình, anh thấy tương lai có hình dạng rõ ràng hơn.",
   "Và lý do cuối: vì mình là Mai Ly — tình yêu của anh.",
 ];
